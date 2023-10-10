@@ -55,7 +55,7 @@ class HelloApiView(APIView):
 class HelloViewSet(viewsets.ViewSet):
 	""" Test API Viewsets """
 
-	serializer = serializers.HelloSerializer
+	serializer_class = serializers.HelloSerializer
 
 	def list(self, request):
 		""" Return a hello message """
@@ -68,12 +68,12 @@ class HelloViewSet(viewsets.ViewSet):
 		return Response({'message': 'Hello!', 'a_viewset': a_viewset})
 
 	def create(self, request):
-		""" Create a new hello message """
+		""" Create a new profile """
 		serializer = self.serializer_class(data=request.data)
 
 		if serializer.is_valid():
 			name = serializer.validated_data.get('name')
-			message = f'Hello {name} ! '
+			message = f'Hello {name} !'
 			return Response({'message': message})
 		else:
 			return Response(
@@ -89,7 +89,7 @@ class HelloViewSet(viewsets.ViewSet):
 		""" Handle updating an object """
 		return Response({'http_method': 'PUT'})
 
-	def partail_update(self, request, pk=None):
+	def partial_update(self, request, pk=None):
 		""" Handle updating part of an object """
 		return Response({'http_method': 'PATCH'})
 
